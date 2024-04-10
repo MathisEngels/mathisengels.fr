@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets'
+import logo from '../images/Logo.webp'
+
+interface Props {
+    listen?: boolean
+}
+
+const { listen = true } = Astro.props
+---
+
+<nav data-listen={listen}>
+    <a class="nav-item active p-0" data-name="hero" href="#hero"><Image class="p-4 md:p-2" src={logo} alt="Mathis Engels's Logo" /></a>
+    <div class="w-[5%]"></div>
+    <a class="nav-item" data-name="about" href="#about">A propos</a>
+    <a class="nav-item" data-name="projects" href="#projects">Projets</a>
+    <a class="nav-item" data-name="contact" href="#contact">Contact</a>
+    <div class="nav-item nav-selector"></div>
+</nav>
+
+<style lang="scss">
+    @use 'sass:list';
+    nav {
+        @apply w-full bg-gray-400/10 bg-clip-padding backdrop-filter backdrop-blur-md ring-1 ring-gray-100/40 shadow-sm shadow-white flex justify-center items-center font-medium;
+        @apply md:w-[24rem] md:mx-auto md:rounded-full max-h-12;
+
+        $items: 20%, 25%, 25%, 25%;
+
+        .nav-item {
+            @apply h-full p-2 text-center;
+
+            @for $i from 1 through 4 {
+                &:nth-of-type(#{$i}) {
+                    width: list.nth($items, $i);
+                }
+            }
+
+            @for $i from 1 through 4 {
+                &:nth-of-type(#{$i}).active ~ .nav-selector {
+                    width: list.nth($items, $i);
+                    left: ($i - 1) * 25%;
+                    @if $i == 1 {
+                        @apply max-md:rounded-l-none;
+                    } @else if $i == 4 {
+                        @apply max-md:rounded-r-none;
+                    }
+                }
+            }
+
+            @media (hover: hover) {
+                @for $i from 1 through 4 {
+                    &:nth-of-type(#{$i}):hover ~ .nav-selector {
+                        width: list.nth($items, $i);
+                        left: ($i - 1) * 25%;
+                        @apply rounded-full;
+                        @if $i == 1 {
+                            @apply max-md:rounded-l-none;
+                        } @else if $i == 4 {
+                            @apply max-md:rounded-r-none;
+                        }
+                    }
+                }
+            }
+
+            @for $i from 1 through 4 {
+                &:nth-of-type(#{$i}).clicked ~ .nav-selector {
+                    width: list.nth($items, $i);
+                    left: ($i - 1) * 25% !important;
+                    @if $i == 1 {
+                        @apply max-md:rounded-l-none;
+                    } @else if $i == 4 {
+                        @apply max-md:rounded-r-none;
+                    }
+                }
+            }
+        }
+
+        .nav-selector {
+            @apply absolute rounded-full bg-gray-400/40 ring-1 ring-gray-100/40 transition-all duration-500 z-[-1];
+        }
+    }
+</style>
+
+<script>
+    const nav = document.querySelector('nav')
+    if (nav?.dataset.listen !== undefined) {
+        const navItems = document.querySelectorAll('.nav-item')
+        navItems.forEach((navItem) => {
+            navItem.addEventListener('click', () => {
+                navItem.classList.add('clicked')
+            })
+        })
+
+        const sections = document.querySelectorAll('section')
+        const options = {
+            threshold: 0.55,
+        }
+
+        const changeNav: IntersectionObserverCallback = (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    document.querySelector('.active')?.classList.remove('active')
+
+                    const name = entry.target.id
+                    const navItemClassList = document.querySelector(`.nav-item[data-name="${name}"]`)?.classList
+                    navItemClassList?.add('active')
+                    navItemClassList?.remove('clicked')
+                }
+            })
+        }
+
+        const observer = new IntersectionObserver(changeNav, options)
+
+        sections.forEach((section) => {
+            observer.observe(section)
+        })
+    }
+</script>
