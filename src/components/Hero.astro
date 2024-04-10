@@ -6,9 +6,9 @@ interface Props {
 const { status } = Astro.props
 
 const statusMap: Record<Status, { color: string; text: string }> = {
-    available: { color: 'green', text: 'Actuellement disponible' },
-    open: { color: 'yellow', text: 'Ouvert aux opportunités' },
-    busy: { color: 'red', text: 'Actuellement occupé' },
+    available: { color: 'bg-green-500', text: 'Actuellement disponible' },
+    open: { color: 'bg-yellow-500', text: 'Ouvert aux opportunités' },
+    busy: { color: 'bg-red-500', text: 'Actuellement occupé' },
 }
 const statusInfo = statusMap[status]
 ---
@@ -24,7 +24,7 @@ const statusInfo = statusMap[status]
             {
                 statusInfo && (
                     <>
-                        <div class={`size-2 bg-${statusInfo.color}-500 rounded-full animate-pulse`} />
+                        <div class={`size-2 ${statusInfo.color} rounded-full animate-pulse`} />
                         {statusInfo.text}
                     </>
                 )
