@@ -1,0 +1,76 @@
+---
+type Status = 'available' | 'open' | 'busy'
+interface Props {
+    status: Status
+}
+const { status } = Astro.props
+
+const statusMap: Record<Status, { color: string; text: string }> = {
+    available: { color: 'green', text: 'Actuellement disponible' },
+    open: { color: 'yellow', text: 'Ouvert aux opportunités' },
+    busy: { color: 'red', text: 'Actuellement occupé' },
+}
+const statusInfo = statusMap[status]
+---
+
+<section id="hero" class="relative overflow-hidden h-screen flex flex-col items-center text-white">
+    <div class="flex flex-col gap-2 px-4 py-24 h-full justify-center">
+        <h3 class="text-xl">Salut, moi c'est</h3>
+        <div class="flex flex-col gap-4 max-md:max-w-80">
+            <h1 class="text-8xl -ml-2">Mathis Engels</h1>
+            <h2 class="text-lg">Développeur Freelance Fullstack utilisant les dernières technologies.</h2>
+        </div>
+        <div class="availability">
+            {
+                statusInfo && (
+                    <>
+                        <div class={`size-2 bg-${statusInfo.color}-500 rounded-full animate-pulse`} />
+                        {statusInfo.text}
+                    </>
+                )
+            }
+        </div>
+    </div>
+    <div class="blob-container">
+        <div class="blob"></div>
+    </div>
+</section>
+
+<style lang="scss">
+    .availability {
+        @apply flex w-fit justify-center items-center gap-2 py-1 px-3 rounded-full bg-clip-padding backdrop-filter backdrop-blur-md ring-2 ring-neutral-400/75 bg-neutral-400/25 mt-4;
+    }
+
+    .blob-container {
+        @apply absolute top-0 left-0 size-1/2;
+        transform: translate(75%, 50%);
+        z-index: -1;
+    }
+
+    .blob {
+        @apply opacity-75 size-full;
+        background: linear-gradient(180deg, #bc5ad5 0%, #43428f 51.5%, #262987 100%);
+        z-index: -1;
+        animation: animate 20s infinite alternate forwards;
+        transform-origin: center;
+        filter: blur(70px);
+    }
+
+    @keyframes animate {
+        0% {
+            border-radius: 42% 58% 58% 42% / 30% 30% 70% 70%;
+            rotate: 0deg;
+            scale: 1.2;
+        }
+        50% {
+            translate: -15% 0%;
+            rotate: -20deg;
+            border-radius: 51% 49% 28% 72% / 53% 58% 42% 47%;
+        }
+        100% {
+            rotate: 50deg;
+            border-radius: 46% 37% 25% 41% / 42% 52% 17% 58%;
+            scale: 0.8;
+        }
+    }
+</style>
