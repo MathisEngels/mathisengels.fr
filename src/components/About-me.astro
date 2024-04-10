@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets'
+import aboutMe from '../images/About_me.jpg'
+import GitHubIcon from './GitHubIcon.astro'
+import LinkedinIcon from './LinkedinIcon.astro'
+import MailIcon from './MailIcon.astro'
+---
+
+<section id="about">
+    <div class="about-container">
+        <Image class="image" src={aboutMe} alt="Mathis Engels" />
+        <div class="text-container">
+            <h2 class="text-xl font-medium">A propos de moi</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt, libero ac tristique pulvinar, felis enim mollis orci, in feugiat ipsum ex ut velit. Lorem ipsum dolor sit
+                amet, consectetur adipiscing elit. In quis felis eget dui fringilla convallis. Phasellus tempor lorem eu risus efficitur, a mattis augue ultricies. Nam eget varius ipsum, in hendrerit
+                sem.
+            </p>
+            <div class="links">
+                <a href="#contact"><MailIcon /></a>
+                <a href="https://linkedin.com/in/mathisengels"><LinkedinIcon /></a>
+                <a href="https://github.com/MathisEngels"><GitHubIcon /></a>
+            </div>
+        </div>
+    </div>
+    <div class="blob-container">
+        <div class="blob"></div>
+    </div>
+</section>
+<style>
+    #about {
+        @apply relative flex items-center justify-center min-h-screen;
+
+        .about-container {
+            @apply flex flex-col px-4;
+            @apply md:flex-row max-w-[1000px];
+
+            .image {
+                @apply rounded-3xl z-10 h-full shadow-md shadow-stone-800/50;
+                @apply md:w-[90%] md:-ml-[10%];
+            }
+
+            .text-container {
+                @apply relative -mt-6 m-4 p-6 flex flex-col gap-4 bg-yellow-800 rounded-3xl z-10 shadow-lg shadow-stone-800/50;
+                @apply md:-ml-[20%] md:my-auto md:min-w-[300px] md:max-w-[500px];
+
+                .links {
+                    @apply flex gap-2 self-end;
+
+                    a {
+                        @apply p-2 rounded transition-all hover:bg-gray-400/20;
+                    }
+                }
+            }
+        }
+
+        .blob-container {
+            @apply absolute top-0 left-0 size-1/2;
+            transform: translate(50%, 50%);
+            z-index: -1;
+
+            .blob {
+                @apply opacity-75 size-full;
+                scale: 1.2;
+                background: linear-gradient(180deg, #82c7a6 0%, #693e16 51.5%, #956437 100%);
+                z-index: -1;
+                animation: blob-animation-2 20s infinite alternate forwards;
+                transform-origin: center;
+                filter: blur(70px);
+            }
+        }
+    }
+
+    @keyframes blob-animation-2 {
+        0% {
+            border-radius: 42% 58% 58% 42% / 30% 30% 70% 70%;
+        }
+        50% {
+            border-radius: 23% 77% 15% 85% / 75% 28% 72% 25%;
+        }
+        100% {
+            border-radius: 46% 37% 25% 41% / 42% 52% 17% 58%;
+            scale: 1;
+        }
+    }
+</style>
