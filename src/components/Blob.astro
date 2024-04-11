@@ -1,0 +1,44 @@
+---
+import { type ClassValue } from 'clsx'
+import cn from '../utils/cn'
+
+interface Props {
+    colors: string[]
+    animateFunction?: string
+    parentClass?: ClassValue
+    blobClass?: ClassValue
+}
+
+const { colors, animateFunction = 'none', parentClass, blobClass } = Astro.props
+---
+
+<div class={cn('blob-container', parentClass)}>
+    <div class={cn('blob', blobClass)}></div>
+</div>
+
+<style
+    lang="scss"
+    define:vars={{
+        gradient0: colors[0],
+        gradient1: colors[1],
+        gradient2: colors[2],
+        animateFct: animateFunction,
+    }}
+>
+    .blob-container {
+        @apply absolute size-full -z-10;
+
+        .blob {
+            @apply absolute size-1/2 opacity-75 -translate-x-1/2 -translate-y-1/2;
+            background: linear-gradient(180deg, var(--gradient0) 0%, var(--gradient1) 50%, var(--gradient2) 100%);
+            filter: blur(70px);
+            animation: var(--animateFct) 20s infinite alternate forwards;
+            transform-origin: center;
+        }
+    }
+</style>
+<style is:global>
+    .has-blob {
+        @apply relative;
+    }
+</style>

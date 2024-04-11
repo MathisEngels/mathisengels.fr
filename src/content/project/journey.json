@@ -1,0 +1,15 @@
+{
+    "title": "Journey portfolio",
+    "description": "Journey est un portfolio 3D. C'est une expérience intéractive pour plonger l'utilisateur dans mon univers et mon parcours. Ce fut un projet complexe, entre la conception 3D et l'optimisation des performance WebGL mais le résultat en valait la peine. Je suis très fier de ce projet et j'espère qu'il vous plaira.",
+    "image": "/src/images/projects/journey.png",
+    "link": "https://journey.mathisengels.fr/",
+    "type": "Personnel",
+    "tags": [
+        "Astro.js",
+        "Three.js",
+        "TailwindCSS",
+        "Blender"
+    ],
+    "date": "2024-02-01",
+    "displayOnHomepage": true
+}

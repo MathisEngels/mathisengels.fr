@@ -1,0 +1,206 @@
+---
+import { Icon } from 'astro-icon/components'
+import { getCollection } from 'astro:content'
+import Blob from './Blob.astro'
+import ProjectComponent from './Project.astro'
+import cn from '../utils/cn'
+
+const allProjects = await getCollection('project', ({ data }) => {
+    return data.displayOnHomepage === true
+})
+
+const sortedProjects = allProjects.sort((a, b) => Date.parse(b.data.date) - Date.parse(a.data.date))
+
+const marqueeIcons = [
+    'angular',
+    'astro',
+    'aws',
+    'docker',
+    'express',
+    'javascript',
+    'javaspring',
+    'mongodb',
+    'nextjs',
+    'nodejs',
+    'postgresql',
+    'react',
+    'redis',
+    'svelte',
+    'tailwindcss',
+    'typescript',
+    'vitest',
+].sort(() => Math.random() - 0.5)
+const mid = Math.floor(marqueeIcons.length / 2)
+const icons = [marqueeIcons.slice(0, mid), marqueeIcons.slice(mid)]
+---
+
+<section id="projects" class="has-blob">
+    <h2 class="text-7xl md:text-[10rem] font-medium text-gray-400/25 md:mt-24">PROJETS</h2>
+    <a href="/projects" class="text-sm text-blue-500/80 hover:underline">Voir tous les projets {'>'}</a>
+    <div class="relative flex flex-col gap-12 my-4 max-w-[1000px] md:flex-row md:w-4/5 md:gap-64">
+        {
+            sortedProjects.map((project) => {
+                return <ProjectComponent project={project} />
+            })
+        }
+        <Icon name="chevron" class="carousel-btn -left-[10%] rotate-180" />
+        <Icon name="chevron" class="carousel-btn -right-[10%]" />
+    </div>
+    <div class="carousel-indicators">
+        {
+            sortedProjects.map(() => {
+                return <div class="carousel-indicator" />
+            })
+        }
+    </div>
+    <div class="marquee-container">
+        <h3 class="text-xl md:text-4xl">Technologies et frameworks utilisés</h3>
+        {
+            icons.map((iconGroup, i) => {
+                return (
+                    <div class={cn('marquee', i % 2 === 1 && 'marquee-reverse')}>
+                        {[0, 1].map(() => {
+                            return (
+                                <div class="marquee-group">
+                                    {iconGroup.map((icon) => {
+                                        return <Icon size={50} name={`marquee/${icon}`} title={icon} />
+                                    })}
+                                </div>
+                            )
+                        })}
+                    </div>
+                )
+            })
+        }
+    </div>
+    <Blob blobClass="top-[40%] left-1/2 rotate-45 rounded-full scale-80" colors={['#34A7C0', '#804524', '#B57BA8']} />
+</section>
+
+<style lang="scss">
+    #projects {
+        @apply flex flex-col gap-4 items-center;
+    }
+
+    .carousel-btn {
+        @apply size-8 hidden absolute top-1/2 scale-[2] opacity-25 cursor-pointer hover:opacity-80 hover:scale-[2.5] transition-all duration-200;
+        @apply md:block;
+    }
+
+    .carousel-indicators {
+        @apply hidden md:flex gap-1 -bottom-8;
+
+        .carousel-indicator {
+            @apply w-3 h-3 rounded-full border cursor-pointer;
+
+            &.active {
+                @apply bg-white;
+            }
+        }
+    }
+
+    .marquee-container {
+        @apply flex flex-col gap-4 justify-center items-center my-8 py-4 w-screen bg-gray-400/10 bg-clip-padding backdrop-filter backdrop-blur-md;
+        @apply md:gap-8 md:my-16 md:py-8;
+
+        .marquee {
+            @apply flex gap-4 overflow-hidden w-full;
+
+            .marquee-group {
+                $gap: 1rem;
+                @apply flex shrink-0 items-center min-w-full justify-around;
+                animation: scroll-x 60s linear infinite;
+                gap: $gap;
+
+                @keyframes scroll-x {
+                    from {
+                        transform: translateX(0);
+                    }
+                    to {
+                        transform: translateX(calc(-100% - $gap));
+                    }
+                }
+
+                svg {
+                    @apply grid place-items-center aspect-square;
+                    @apply md:size-[100px];
+                }
+            }
+        }
+
+        .marquee-reverse .marquee-group {
+            animation-direction: reverse;
+            animation-delay: -3s;
+        }
+    }
+</style>
+
+<script>
+    const carouselButtons = document.querySelectorAll('.carousel-btn')
+    const carouselIndicators = document.querySelectorAll('.carousel-indicator')
+    const projects = document.querySelectorAll('.project') as NodeListOf<HTMLElement>
+
+    let currentActiveIndex = 0
+
+    const disableButton = (button: Element) => {
+        button.classList.add('!opacity-0', 'pointer-events-none')
+    }
+
+    const enableButton = (button: Element) => {
+        button.classList.remove('!opacity-0', 'pointer-events-none')
+    }
+
+    const updateButtons = (newActiveIndex: number) => {
+        const isFirstProject = newActiveIndex === 0
+        const isLastProject = newActiveIndex === projects.length - 1
+
+        if (isFirstProject) {
+            disableButton(carouselButtons[0])
+            enableButton(carouselButtons[1])
+        } else if (isLastProject) {
+            disableButton(carouselButtons[1])
+            enableButton(carouselButtons[0])
+        } else {
+            enableButton(carouselButtons[0])
+            enableButton(carouselButtons[1])
+        }
+    }
+
+    const updateIndicators = (newActiveIndex: number) => {
+        carouselIndicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === newActiveIndex)
+        })
+    }
+
+    const moveCarousel = (newActiveIndex: number) => {
+        projects.forEach((project, index) => {
+            project.style.transform = `translateX(calc(${newActiveIndex * -100}% - ${newActiveIndex * 16}rem))`
+        })
+    }
+
+    carouselIndicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            moveCarousel(index)
+            updateButtons(index)
+            updateIndicators(index)
+
+            currentActiveIndex = index
+        })
+    })
+
+    carouselButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            const direction = index === 0 ? -1 : 1
+            const newActiveIndex = currentActiveIndex + direction
+
+            moveCarousel(newActiveIndex)
+            updateButtons(newActiveIndex)
+            updateIndicators(newActiveIndex)
+
+            currentActiveIndex = newActiveIndex
+        })
+    })
+
+    moveCarousel(currentActiveIndex)
+    updateButtons(currentActiveIndex)
+    updateIndicators(currentActiveIndex)
+</script>

@@ -1,0 +1,14 @@
+{
+    "title": "Moulin Dashboard",
+    "description": "Ce projet est une webapp qui permet de gérer la domotique d'une maison, celle de mon père. Il est possible de gérer l'arrosage automatique du jardin, l'éclairage extérieur et ainsi que la gestion du portail électrique. J'ai pu mettre en pratique mes connaissances en électronique et en développement web dans cette web app, bien que je considère une refonte pour améliorer globalement l'expérience.",
+    "image": "/src/images/projects/moulin-dashboard.png",
+    "type": "Personnel",
+    "tags": [
+        "React.js",
+        "Next.js",
+        "NodeJS",
+        "RaspberryPi"
+    ],
+    "date": "2018-01-01",
+    "displayOnHomepage": true
+}

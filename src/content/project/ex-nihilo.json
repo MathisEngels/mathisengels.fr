@@ -1,0 +1,14 @@
+{
+    "title": "Ex-nihilo Agency",
+    "description": "Ex-nihilo est une agence de communication digitale. J'ai eu l'opportunité de travailler sur leur site vitrine. En suivant les maquettes fournies par le designer, j'ai pu mettre en place un site web moderne, responsive et SEO ready. Le site vitrine est développé avec Next.js suite au demande du client, mais déployer en SSG pour optimiser l'expérience utilisateur. Allez jeter un oeil à la démo !",
+    "image": "/src/images/projects/ex-nihilo.png",
+    "link": "https://ex-nihilo.demo.mathisengels.fr/",
+    "type": "Freelance",
+    "tags": [
+        "React.js",
+        "Next.js",
+        "TailwindCSS"
+    ],
+    "date": "2024-03-01",
+    "displayOnHomepage": true
+}
