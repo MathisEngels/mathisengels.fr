@@ -1,25 +1,35 @@
 ---
+import { SEO } from 'astro-seo'
 import Analytics from '../components/Analytics.astro'
 import Footer from '../components/Footer.astro'
 import Header from '../components/Header.astro'
 import '../styles/global.css'
 
-interface Props {
-    title: string
-}
-
-const { title } = Astro.props
+const title = "Mathis Engels | Développeur Full-Stack"
+const description = "Bienvenue sur le portfolio de Mathis Engels, développeur Full-Stack passionné par le web et les nouvelles technologies. J'utilise des technologies modernes pour créer des applications web performantes tel que React, Next.js, Astro, TailwindCSS, et bien d'autres. Venez en apprendre plus sur moi et mes projets ! N'hésitez pas à me contacter pour discuter de vos projets ou pour toute autre question."
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
     <head>
-        <title>{title}</title>
         <meta charset="UTF-8" />
-        <meta name="description" content="Astro description" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
+        <SEO
+            title={title}
+            description={description}
+            openGraph={{
+                basic: {
+                    title: title,
+                    type: 'website',
+                    image: 'https://mathisengels.fr/og-image.webp',
+                },
+                optional: {
+                    description: description
+                }
+            }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
