@@ -10,7 +10,7 @@ const { listen = true } = Astro.props
 ---
 
 <nav data-listen={listen}>
-    <a class="nav-item active p-0" data-name="hero" href="#hero"><Image class="p-4 md:p-2" src={logo} alt="Mathis Engels's Logo" /></a>
+    <a class="nav-item active p-0" data-name="hero" href="#hero"><Image class="p-4 sm:p-6 md:p-2" src={logo} alt="Mathis Engels's Logo" /></a>
     <div class="w-[5%]"></div>
     <a class="nav-item" data-name="about" href="#about">A propos</a>
     <a class="nav-item" data-name="projects" href="#projects">Projets</a>
@@ -91,10 +91,24 @@ const { listen = true } = Astro.props
             })
         })
 
+        let observers: IntersectionObserver[] = []
         const sections = document.querySelectorAll('section')
-        const options = {
-            threshold: 0.55,
-        }
+        const browserHeight = window.innerHeight
+
+        const data = [...sections]
+            .map((section) => {
+                return [section, browserHeight / section.clientHeight / 2]
+            })
+            .reduce(
+                (acc: { [key: number]: HTMLElement[] }, [section, value]) => {
+                    if (!acc[value as number]) {
+                        acc[value as number] = []
+                    }
+                    acc[value as number].push(section as HTMLElement)
+                    return acc
+                },
+                {} as { [key: number]: HTMLElement[] }
+            )
 
         const changeNav: IntersectionObserverCallback = (entries) => {
             entries.forEach((entry) => {
@@ -109,10 +123,30 @@ const { listen = true } = Astro.props
             })
         }
 
-        const observer = new IntersectionObserver(changeNav, options)
+        const setObservers = () => {
+            for (let [key, value] of Object.entries(data)) {
+                const observer = new IntersectionObserver(changeNav, {
+                    threshold: Number(key) as number,
+                })
 
-        sections.forEach((section) => {
-            observer.observe(section)
+                value.forEach((section) => {
+                    observer.observe(section)
+                })
+
+                observers.push(observer)
+            }
+        }
+
+        setObservers()
+
+        window.addEventListener('resize', () => {
+            observers.forEach((observer) => {
+                observer.disconnect()
+            })
+
+            observers = []
+
+            setObservers()
         })
     }
 </script>
