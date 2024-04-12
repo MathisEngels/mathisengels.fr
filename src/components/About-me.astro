@@ -4,9 +4,10 @@ import aboutMe from '../images/About_me.jpg'
 import GitHubIcon from './GitHubIcon.astro'
 import LinkedinIcon from './LinkedinIcon.astro'
 import MailIcon from './MailIcon.astro'
+import Blob from './Blob.astro'
 ---
 
-<section id="about">
+<section id="about" class="has-blob">
     <div class="about-container">
         <Image class="image" src={aboutMe} alt="Mathis Engels" />
         <div class="text-container">
@@ -23,9 +24,7 @@ import MailIcon from './MailIcon.astro'
             </div>
         </div>
     </div>
-    <div class="blob-container">
-        <div class="blob"></div>
-    </div>
+    <Blob blobClass="top-1/2 left-1/2 scale-[1.1]" colors={["#82c7a6", "#693e16", "#956437"]} />
 </section>
 <style>
     #about {
@@ -54,33 +53,8 @@ import MailIcon from './MailIcon.astro'
             }
         }
 
-        .blob-container {
-            @apply absolute top-0 left-0 size-1/2;
-            transform: translate(50%, 50%);
-            z-index: -1;
-
-            .blob {
-                @apply opacity-75 size-full;
-                scale: 1.2;
-                background: linear-gradient(180deg, #82c7a6 0%, #693e16 51.5%, #956437 100%);
-                z-index: -1;
-                animation: blob-animation-2 20s infinite alternate forwards;
-                transform-origin: center;
-                filter: blur(70px);
-            }
-        }
-    }
-
-    @keyframes blob-animation-2 {
-        0% {
-            border-radius: 42% 58% 58% 42% / 30% 30% 70% 70%;
-        }
-        50% {
-            border-radius: 23% 77% 15% 85% / 75% 28% 72% 25%;
-        }
-        100% {
-            border-radius: 46% 37% 25% 41% / 42% 52% 17% 58%;
-            scale: 1;
+        .blob {
+            border-radius: 42% 58% 58% 42% / 30% 30% 70% 70%
         }
     }
 </style>

@@ -1,4 +1,6 @@
 ---
+import Blob from './Blob.astro';
+
 type Status = 'available' | 'open' | 'busy'
 interface Props {
     status: Status
@@ -31,9 +33,7 @@ const statusInfo = statusMap[status]
             }
         </div>
     </div>
-    <div class="blob-container">
-        <div class="blob"></div>
-    </div>
+    <Blob blobClass="top-1/2 left-[60%] test" colors={["#bc5ad5", "#43428f", "#262987"]} animateFunction='blob-animation' />
 </section>
 
 <style lang="scss">
@@ -41,36 +41,21 @@ const statusInfo = statusMap[status]
         @apply flex w-fit justify-center items-center gap-2 py-1 px-3 rounded-full bg-clip-padding backdrop-filter backdrop-blur-md ring-2 ring-neutral-400/75 bg-neutral-400/25 mt-4;
     }
 
-    .blob-container {
-        @apply absolute top-0 left-0 size-1/2;
-        transform: translate(75%, 50%);
-        z-index: -1;
-    }
-
-    .blob {
-        @apply opacity-75 size-full;
-        background: linear-gradient(180deg, #bc5ad5 0%, #43428f 51.5%, #262987 100%);
-        z-index: -1;
-        animation: animate 20s infinite alternate forwards;
-        transform-origin: center;
-        filter: blur(70px);
-    }
-
-    @keyframes animate {
+    @keyframes blob-animation {
         0% {
             border-radius: 42% 58% 58% 42% / 30% 30% 70% 70%;
-            rotate: 0deg;
-            scale: 1.2;
+            rotate: -5deg;
+            scale: 1.1;
         }
         50% {
-            translate: -15% 0%;
-            rotate: -20deg;
+            translate: -10% 0%;
+            rotate: -10deg;
             border-radius: 51% 49% 28% 72% / 53% 58% 42% 47%;
         }
         100% {
-            rotate: 50deg;
+            rotate: 25deg;
             border-radius: 46% 37% 25% 41% / 42% 52% 17% 58%;
-            scale: 0.8;
+            scale: 0.9;
         }
     }
 </style>
