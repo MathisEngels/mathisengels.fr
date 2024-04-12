@@ -10,7 +10,7 @@ interface Props {
 const { project } = Astro.props
 ---
 
-<article class="project">
+<article data-aos="fade-up" class="project">
     <a target="_blank" href={project.data.link}>
         <Image
             class={cn('rounded-3xl aspect-video object-cover shadow-md shadow-stone-800/50', project.data.link && 'hover:scale-[1.02] transition-all duration-500')}

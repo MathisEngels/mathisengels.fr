@@ -12,7 +12,7 @@ interface Props {
 const { colors, animateFunction = 'none', parentClass, blobClass } = Astro.props
 ---
 
-<div class={cn('blob-container', parentClass)}>
+<div data-aos="fade" data-aos-delay="1000" data-aos-once="true" class={cn('blob-container', parentClass)}>
     <div class={cn('blob', blobClass)}></div>
 </div>
 

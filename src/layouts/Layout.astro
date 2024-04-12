@@ -4,6 +4,7 @@ import Analytics from '../components/Analytics.astro'
 import Footer from '../components/Footer.astro'
 import Header from '../components/Header.astro'
 import '../styles/global.css'
+import 'aos/dist/aos.css'
 
 const title = "Mathis Engels | Développeur Full-Stack"
 const description = "Bienvenue sur le portfolio de Mathis Engels, développeur Full-Stack passionné par le web et les nouvelles technologies. J'utilise des technologies modernes pour créer des applications web performantes tel que React, Next.js, Astro, TailwindCSS, et bien d'autres. Venez en apprendre plus sur moi et mes projets ! N'hésitez pas à me contacter pour discuter de vos projets ou pour toute autre question."
@@ -60,3 +61,21 @@ const description = "Bienvenue sur le portfolio de Mathis Engels, développeur F
         @apply md:-mt-12 px-4 overflow-hidden;
     }
 </style>
+
+<script>
+    import AOS from 'aos'
+
+    const initAOS = () => {
+        AOS.init({
+            duration: 1000,
+            disable: (
+                /bot|crawler|spider|crawling/i.test(navigator.userAgent)
+                || window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ),
+        })
+    }
+    
+    initAOS();
+
+    document.addEventListener('astro:after-swap', () => initAOS())
+</script>

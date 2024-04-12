@@ -18,6 +18,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@types/react": "^18.2.77",
     "@types/react-dom": "^18.2.25",
+    "aos": "^2.3.4",
     "astro": "^4.5.17",
     "astro-icon": "^1.1.0",
     "astro-seo": "^0.8.3",
@@ -34,6 +35,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.7",
     "@typescript-eslint/parser": "^7.6.0",
     "eslint": "^9.0.0",
     "eslint-plugin-astro": "^0.34.0",
