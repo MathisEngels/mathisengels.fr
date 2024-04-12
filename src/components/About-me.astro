@@ -1,9 +1,7 @@
 ---
+import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
 import aboutMe from '../images/About_me.jpg'
-import GitHubIcon from './GitHubIcon.astro'
-import LinkedinIcon from './LinkedinIcon.astro'
-import MailIcon from './MailIcon.astro'
 import Blob from './Blob.astro'
 ---
 
@@ -18,13 +16,13 @@ import Blob from './Blob.astro'
                 sem.
             </p>
             <div class="links">
-                <a href="#contact"><MailIcon /></a>
-                <a target="_blank" href="https://linkedin.com/in/mathisengels"><LinkedinIcon /></a>
-                <a target="_blank" href="https://github.com/MathisEngels"><GitHubIcon /></a>
+                <a href="#contact"><Icon class="size-8" name="mail" /></a>
+                <a target="_blank" href="https://linkedin.com/in/mathisengels"><Icon class="size-8" name="linkedin" /></a>
+                <a target="_blank" href="https://github.com/MathisEngels"><Icon class="size-8" name="github" /></a>
             </div>
         </div>
     </div>
-    <Blob blobClass="top-1/2 left-1/2 scale-[1.1]" colors={["#82c7a6", "#693e16", "#956437"]} />
+    <Blob blobClass="top-1/2 left-1/2 scale-[1.1]" colors={['#82c7a6', '#693e16', '#956437']} />
 </section>
 <style>
     #about {
@@ -54,7 +52,7 @@ import Blob from './Blob.astro'
         }
 
         .blob {
-            border-radius: 42% 58% 58% 42% / 30% 30% 70% 70%
+            border-radius: 42% 58% 58% 42% / 30% 30% 70% 70%;
         }
     }
 </style>
