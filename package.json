@@ -13,6 +13,7 @@
     "@astrojs/check": "^0.5.10",
     "@astrojs/react": "^3.3.0",
     "@astrojs/tailwind": "^5.1.0",
+    "@fontsource-variable/montserrat": "^5.0.18",
     "@hookform/resolvers": "^3.3.4",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
