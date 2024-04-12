@@ -11,13 +11,23 @@ const { project } = Astro.props
 ---
 
 <article data-aos="fade-up" class="project">
-    <a target="_blank" href={project.data.link}>
-        <Image
-            class={cn('rounded-3xl aspect-video object-cover shadow-md shadow-stone-800/50', project.data.link && 'hover:scale-[1.02] transition-all duration-500')}
-            src={project.data.image}
-            alt={project.data.title}
-        />
-    </a>
+    {
+        project.data.link ? (
+            <a target="_blank" href={project.data.link}>
+                <Image
+                    class={cn('rounded-3xl aspect-video object-cover shadow-md shadow-stone-800/50', project.data.link && 'hover:scale-[1.02] transition-all duration-500')}
+                    src={project.data.image}
+                    alt={project.data.title}
+                />
+            </a>
+        ) : (
+            <Image
+                class={cn('rounded-3xl aspect-video object-cover shadow-md shadow-stone-800/50', project.data.link && 'hover:scale-[1.02] transition-all duration-500')}
+                src={project.data.image}
+                alt={project.data.title}
+            />
+        )
+    }
     <div class="flex flex-col gap-2">
         <div class="flex justify-between items-baseline">
             <h3 class="text-2xl font-medium">{project.data.title}</h3>
