@@ -1,0 +1,32 @@
+---
+import { Icon } from 'astro-icon/components'
+import Blob from './Blob.astro'
+import ContactForm from './ContactForm'
+---
+
+<section id="contact" class="has-blob">
+    <h3 class="text-7xl">Contact</h3>
+    <div class="flex flex-col gap-8 max-w-[1000px] md:flex-row md:px-4">
+        <div class="flex flex-col gap-4 justify-evenly md:py-4 md:text-right md:w-1/2">
+            <p>Vous avez un projet en tête ?</p>
+            <p>Vous souhaitez créer un site web ?</p>
+            <p>N’hésitez pas à me contacter pour toute informations ou renseignements.</p>
+            <div>
+                <p>A bientôt,</p>
+                <p>Mathis Engels</p>
+                <span class="text-sm leading-3">contact@mathisengels.fr</span>
+            </div>
+        </div>
+        <ContactForm client:idle>
+            <Icon name="send" size={24} />
+        </ContactForm>
+    </div>
+    <Blob blobClass="top-1/2 left-[60%] min-w-[300px] min-h-[300px] !w-[25vw] !h-[25vw] rounded-full" colors={['#B9BC39', '#A67E9D', '#EE8728']} />
+</section>
+
+<style>
+    #contact {
+        @apply flex flex-col gap-8 my-16 items-start justify-evenly w-fit mx-auto;
+        @apply md:items-center md:my-32;
+    }
+</style>

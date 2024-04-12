@@ -1,0 +1,139 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRef } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { z } from 'zod'
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from './ui/form'
+import { Input } from './ui/input'
+import { Textarea } from './ui/textarea'
+
+const formSchema = z.object({
+    name: z
+        .string()
+        .min(2, 'Le nom doit contenir au minimum 2 caractères')
+        .max(50, 'Le nom doit contenir au maximum 50 caractères'),
+    email: z.string().email("L'email n'est pas valide"),
+    message: z
+        .string()
+        .min(10, 'Le message doit contenir au minimum 10 caractères')
+        .max(1000, 'Le message doit contenir au maximum 1000 caractères'),
+})
+
+export default function ContactForm({
+    children,
+}: {
+    children?: React.ReactNode
+}) {
+    const submitButtonRef = useRef<HTMLButtonElement | null>(null)
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            name: '',
+            email: '',
+            message: '',
+        },
+    })
+
+    const onSubmit = async (data: z.infer<typeof formSchema>) => {
+        const sendMessage = new Promise((resolve, reject) => {
+            fetch('https://api.mathisengels.fr/contact', {
+                method: 'POST',
+                body: JSON.stringify(data),
+            })
+                .then((res) => {
+                    if (res.ok) {
+                        resolve(res)
+                    } else {
+                        reject()
+                    }
+                })
+                .catch(() => reject())
+        })
+
+        await toast.promise(
+            sendMessage,
+            {
+                pending: 'Envoi du message...',
+                success: 'Message envoyé !',
+                error: 'Une erreur est survenue',
+            },
+            {
+                position: 'top-right',
+                hideProgressBar: true,
+            }
+        )
+    }
+
+    return (
+        <Form {...form}>
+            <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4 md:w-1/2"
+            >
+                <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Nom</FormLabel>
+                            <FormControl>
+                                <Input placeholder="John Doe" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                                <Input
+                                    placeholder="john.doe@email.com"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Message</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                    placeholder="Salut Mathis, j'ai une idée de projet..."
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <button
+                    ref={submitButtonRef}
+                    type="submit"
+                    disabled={form.formState.isSubmitting}
+                    className="flex items-center gap-2 h-9 rounded-3xl ring-2 ring-neutral-400/75 bg-neutral-400/25 bg-clip-padding backdrop-filter backdrop-blur-md !mt-4 md:!mt-6 px-3 py-1placeholder:text-white/50 focus-visible:outline-none enabled:hover:bg-neutral-400/40 disabled:bg-neutral-400/10 disabled:text-white/50 transition-all"
+                >
+                    Envoyer
+                    <span>{children}</span>
+                </button>
+            </form>
+            <ToastContainer />
+        </Form>
+    )
+}
