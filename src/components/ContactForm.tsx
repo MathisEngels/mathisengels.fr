@@ -50,6 +50,7 @@ export default function ContactForm({
             })
                 .then((res) => {
                     if (res.ok) {
+                        form.reset()
                         resolve(res)
                     } else {
                         reject()
