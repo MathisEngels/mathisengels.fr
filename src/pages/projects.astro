@@ -1,0 +1,167 @@
+---
+import { getCollection } from 'astro:content'
+import Project from '../components/Project.astro'
+import Layout from '../layouts/Layout.astro'
+import { Icon } from 'astro-icon/components'
+import Blob from '../components/Blob.astro'
+
+const allProjects = await getCollection('project')
+
+const sortedProjects = allProjects.sort((a, b) => Date.parse(b.data.date) - Date.parse(a.data.date))
+
+const tags = allProjects.reduce((acc, project) => {
+    project.data.tags.forEach((tag) => {
+        if (!acc.includes(tag)) {
+            acc.push(tag)
+        }
+    })
+    return acc
+}, [] as string[])
+---
+
+<Layout navbarListen={false}>
+    <section class="flex flex-col items-center gap-8 my-8 min-h-screen max-w-[1000px] mx-auto md:mt-24">
+        <h1 data-aos="fade" class="text-center text-6xl md:text-8xl">Projets</h1>
+        <div data-aos="fade" data-aos-delay="1000" class="flex flex-col gap-2 w-full filter">
+            <a class="flex items-center w-fit font-light text-xs text-gray-400" href="/#projects">
+                <Icon name="chevron" class="rotate-180" />
+                Go Back
+            </a>
+            <h2>Filtrer par tag</h2>
+            <div class="tags">
+                {
+                    tags.map((tag) => (
+                        <div data-tag={tag} class="tag">
+                            <p>{tag}</p>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+        <div data-aos="fade" data-aos-delay="1000" class="projects">
+            {
+                sortedProjects.map((project) => (
+                    <div class="project-wrapper" data-tags={project.data.tags}>
+                        <Project project={project} />
+                    </div>
+                ))
+            }
+        </div>
+        <Blob parentClass="!fixed md:-mt-24" blobClass="top-1/2 left-1/2 min-w-[300px] min-h-[300px] !w-[20vw] !h-[20vw] rounded-full" colors={['#34A7C0', '#804524', '#B57BA8']}  />
+    </section>
+</Layout>
+
+<style lang="scss">
+    .tags {
+        @apply relative -ml-2 text-xs font-light;
+
+        .tag {
+            @apply absolute block;
+
+            p {
+                @apply m-2 py-1 px-3 rounded-full bg-clip-padding backdrop-filter backdrop-blur-md ring-2 ring-neutral-400/75 bg-neutral-400/25 cursor-pointer;
+            }
+
+            &.selected p {
+                @apply bg-neutral-500;
+            }
+        }
+    }
+
+    .projects {
+        @apply relative w-full -m-4;
+
+        .project-wrapper {
+            @apply absolute block md:w-[calc(50%_-_2rem)] my-4 md:m-4;
+        }
+    }
+</style>
+
+<script>
+    import Muuri from 'muuri'
+
+    let selectedTags: string[] = []
+
+    // URL query parameters
+    const urlParams = new URLSearchParams(window.location.search)
+    const queryTags = urlParams.get('tags')
+
+    if (queryTags) {
+        selectedTags = queryTags.split(',')
+    }
+
+    // Muuri grids
+    const tagGrid = new Muuri('.filter .tags')
+    const projectGrid = new Muuri('.projects')
+
+    // Variables
+    const tagElements = document.querySelectorAll('.filter .tag')
+    const projects = document.querySelectorAll('.project-wrapper')
+    const availableTags = new Set<string>()
+
+    // Muuri filters
+    const triggerTagFilter = () => tagGrid.filter((item) => !item.getElement()?.classList.contains('hidden'))
+    const triggerProjectFilter = () => projectGrid.filter((item) => !item.getElement()?.classList.contains('hidden'))
+
+    // Functions
+    const getProjectTags = (project: HTMLElement) => project.dataset.tags!.split(',')
+    const isTagSelected = (tagElement: HTMLElement) => tagElement.classList.contains('selected')
+
+    const updateProjectVisibilityAndTags = () => {
+        projects.forEach((project) => {
+            const projectTags = getProjectTags(project as HTMLElement)
+            const isProjectVisible = selectedTags.every((selectedTag) => projectTags.includes(selectedTag))
+
+            project.classList.toggle('hidden', !isProjectVisible)
+            if (isProjectVisible) projectTags.forEach((tag) => availableTags.add(tag))
+        })
+    }
+
+    const updateAvailableTags = () => {
+        tagElements.forEach((tagElement) => {
+            const tag = (tagElement as HTMLElement).dataset.tag!
+            const isTagAvailable = availableTags.has(tag)
+
+            tagElement.classList.toggle('hidden', !isTagAvailable)
+        })
+    }
+
+    const updateUrl = () => {
+        let newUrl = `${window.location.origin}${window.location.pathname}`
+        if (selectedTags.length > 0) {
+            newUrl += `?tags=${selectedTags.join(',')}`
+        }
+        window.history.pushState({}, '', newUrl)
+    }
+
+    tagElements.forEach((tagElement) => {
+        const {
+            classList,
+            dataset: { tag },
+        } = tagElement as HTMLElement
+        if (selectedTags.includes(tag!)) classList.add('selected')
+
+        tagElement.addEventListener('click', () => {
+            classList.toggle('selected')
+
+            if (isTagSelected(tagElement as HTMLElement)) {
+                selectedTags.push(tag!)
+            } else {
+                selectedTags = selectedTags.filter((selectedTag) => selectedTag !== tag!)
+            }
+            availableTags.clear()
+
+            updateProjectVisibilityAndTags()
+            updateAvailableTags()
+            triggerTagFilter()
+            triggerProjectFilter()
+
+            updateUrl()
+        })
+    })
+
+    updateProjectVisibilityAndTags()
+    updateAvailableTags()
+    triggerTagFilter()
+    triggerProjectFilter()
+</script>

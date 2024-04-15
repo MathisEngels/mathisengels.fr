@@ -4,13 +4,14 @@ import type { CollectionEntry } from 'astro:content'
 import cn from '../utils/cn'
 
 interface Props {
+    aos?: string,
     project: CollectionEntry<'project'>
 }
 
-const { project } = Astro.props
+const { aos, project } = Astro.props
 ---
 
-<article data-aos="fade-up" class="project">
+<article data-aos={aos} class="project">
     {
         project.data.link ? (
             <a target="_blank" href={project.data.link}>
@@ -38,7 +39,7 @@ const { project } = Astro.props
             {
                 project.data.tags.map((tag) => {
                     return (
-                        <a aria-label={tag} href={`/projects?tag=${tag}`} class="tag">
+                        <a aria-label={tag} href={`/projects?tags=${tag}`} class="tag">
                             {tag}
                         </a>
                     )

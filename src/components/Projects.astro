@@ -40,7 +40,7 @@ const icons = [marqueeIcons.slice(0, mid), marqueeIcons.slice(mid)]
     <div class="relative flex flex-col gap-12 my-4 max-w-[1000px] md:flex-row md:w-4/5 md:gap-64">
         {
             sortedProjects.map((project) => {
-                return <ProjectComponent project={project} />
+                return <ProjectComponent aos="fade-up" project={project} />
             })
         }
         <Icon name="chevron" class="carousel-btn -left-[10%] rotate-180" />
