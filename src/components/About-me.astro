@@ -14,11 +14,7 @@ const relativeLocaleUrl = Astro.currentLocale === Languages.French ? '/' : `/${A
         <Image data-aos="fade-up" class="image" src={aboutMe} alt="Mathis Engels" />
         <div data-aos="fade-up" data-aos-delay="500" class="text-container">
             <h2 class="text-xl font-medium">{t('aboutMe.title')}</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt, libero ac tristique pulvinar, felis enim mollis orci, in feugiat ipsum ex ut velit. Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit. In quis felis eget dui fringilla convallis. Phasellus tempor lorem eu risus efficitur, a mattis augue ultricies. Nam eget varius ipsum, in hendrerit
-                sem.
-            </p>
+            <p set:html={t('aboutMe.text')} />
             <div class="links">
                 <a href={relativeLocaleUrl + '#contact'}><Icon class="size-8" name="mail" /></a>
                 <a target="_blank" href="https://linkedin.com/in/mathisengels"><Icon class="size-8" name="linkedin" /></a>
