@@ -179,7 +179,7 @@ const t = useTranslations(Astro.currentLocale as Languages)
     }
 
     const moveCarousel = (newActiveIndex: number) => {
-        projects.forEach((project, index) => {
+        projects.forEach((project) => {
             project.style.transform = `translateX(calc(${newActiveIndex * -100}% - ${newActiveIndex * 16}rem))`
         })
     }
