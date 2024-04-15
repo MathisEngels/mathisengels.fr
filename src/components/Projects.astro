@@ -5,6 +5,7 @@ import Blob from './Blob.astro'
 import ProjectComponent from './Project.astro'
 import cn from '../utils/cn'
 import { Languages, useTranslations } from '../i18n'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 
 const allProjects = await getCollection('project', ({ data }) => {
     return data.displayOnHomepage === true
@@ -39,7 +40,7 @@ const t = useTranslations(Astro.currentLocale as Languages)
 
 <section id="projects" class="has-blob">
     <h2 data-aos="fade-up" class="text-7xl md:text-[10rem] font-medium text-gray-400/25 md:mt-24">{t('projects.title')}</h2>
-    <a data-aos="fade-up" href="/projects" class="flex items-center text-sm text-blue-500/80 hover:underline">
+    <a data-aos="fade-up" href={getRelativeLocaleUrl(Astro.currentLocale!, 'projects').slice(0, -1)} class="flex items-center text-sm text-blue-500/80 hover:underline">
         {t('projects.seeAll')}
         <Icon name="chevron" />
     </a>

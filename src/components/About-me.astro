@@ -6,6 +6,7 @@ import aboutMe from '../images/About_me.jpg'
 import Blob from './Blob.astro'
 
 const t = useTranslations(Astro.currentLocale as Languages)
+const relativeLocaleUrl = Astro.currentLocale === Languages.French ? '/' : `/${Astro.currentLocale}`
 ---
 
 <section id="about" class="has-blob">
@@ -19,7 +20,7 @@ const t = useTranslations(Astro.currentLocale as Languages)
                 sem.
             </p>
             <div class="links">
-                <a href="#contact"><Icon class="size-8" name="mail" /></a>
+                <a href={relativeLocaleUrl + '#contact'}><Icon class="size-8" name="mail" /></a>
                 <a target="_blank" href="https://linkedin.com/in/mathisengels"><Icon class="size-8" name="linkedin" /></a>
                 <a target="_blank" href="https://github.com/MathisEngels"><Icon class="size-8" name="github" /></a>
             </div>

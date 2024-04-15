@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets'
 import logo from '../images/Logo.webp'
 import { Languages, useTranslations } from '../i18n'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 
 interface Props {
     listen?: boolean
@@ -9,14 +10,16 @@ interface Props {
 
 const { listen = true } = Astro.props
 const t = useTranslations(Astro.currentLocale as Languages)
+
+const relativeLocaleUrl = Astro.currentLocale === Languages.French ? '/' : `/${Astro.currentLocale}`
 ---
 
 <nav data-listen={listen}>
-    <a class="nav-item active p-0" data-name="hero" href="/#hero"><Image class="p-4 sm:p-6 md:p-2" src={logo} alt="Mathis Engels's Logo" /></a>
+    <a class="nav-item active p-0" data-name="hero" href={relativeLocaleUrl + '#hero'}><Image class="p-4 sm:p-6 md:p-2" src={logo} alt="Mathis Engels's Logo" /></a>
     <div class="w-[5%]"></div>
-    <a class="nav-item" data-name="about" href="/#about">{t('navbar.about')}</a>
-    <a class="nav-item" data-name="projects" href="/#projects">{t('navbar.projects')}</a>
-    <a class="nav-item" data-name="contact" href="/#contact">Contact</a>
+    <a class="nav-item" data-name="about" href={relativeLocaleUrl + '#about'}>{t('navbar.about')}</a>
+    <a class="nav-item" data-name="projects" href={relativeLocaleUrl + '#projects'}>{t('navbar.projects')}</a>
+    <a class="nav-item" data-name="contact" href={relativeLocaleUrl + '#contact'}>Contact</a>
     <div class="nav-item nav-selector"></div>
 </nav>
 

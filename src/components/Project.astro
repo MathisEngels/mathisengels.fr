@@ -1,11 +1,12 @@
 ---
 import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
-import cn from '../utils/cn'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 import { Languages } from '../i18n'
+import cn from '../utils/cn'
 
 interface Props {
-    aos?: string,
+    aos?: string
     project: CollectionEntry<'project'>
 }
 
@@ -33,14 +34,14 @@ const { aos, project } = Astro.props
     <div class="flex flex-col gap-2">
         <div class="flex justify-between items-baseline">
             <h3 class="text-2xl font-medium">{project.data.title}</h3>
-            <p class="font-light">{project.data.type[Astro.currentLocale as Languages || Languages.English]}</p>
+            <p class="font-light">{project.data.type[(Astro.currentLocale as Languages) || Languages.English]}</p>
         </div>
-        <p>{project.data.description[Astro.currentLocale as Languages || Languages.English]}</p>
+        <p>{project.data.description[(Astro.currentLocale as Languages) || Languages.English]}</p>
         <div class="tags">
             {
                 project.data.tags.map((tag) => {
                     return (
-                        <a aria-label={tag} href={`/projects?tags=${tag}`} class="tag">
+                        <a aria-label={tag} href={getRelativeLocaleUrl(Astro.currentLocale!, 'projects').slice(0, -1) + `?tags=${tag}`} class="tag">
                             {tag}
                         </a>
                     )
