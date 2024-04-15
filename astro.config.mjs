@@ -6,4 +6,8 @@ import { defineConfig } from 'astro/config'
 // https://astro.build/config
 export default defineConfig({
     integrations: [tailwind(), icon(), react()],
+    i18n: {
+        defaultLocale: 'fr',
+        locales: ['fr', 'en']
+    }
 })
