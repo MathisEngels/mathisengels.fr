@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
 import cn from '../utils/cn'
+import { Languages } from '../i18n'
 
 interface Props {
     aos?: string,
@@ -32,9 +33,9 @@ const { aos, project } = Astro.props
     <div class="flex flex-col gap-2">
         <div class="flex justify-between items-baseline">
             <h3 class="text-2xl font-medium">{project.data.title}</h3>
-            <p class="font-light">{project.data.type}</p>
+            <p class="font-light">{project.data.type[Astro.currentLocale as Languages || Languages.English]}</p>
         </div>
-        <p>{project.data.description}</p>
+        <p>{project.data.description[Astro.currentLocale as Languages || Languages.English]}</p>
         <div class="tags">
             {
                 project.data.tags.map((tag) => {

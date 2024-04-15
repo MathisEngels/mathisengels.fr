@@ -1,8 +1,14 @@
 {
     "title": "Moulin Dashboard",
-    "description": "Ce projet est une webapp qui permet de gérer la domotique d'une maison, celle de mon père. Il est possible de gérer l'arrosage automatique du jardin, l'éclairage extérieur et ainsi que la gestion du portail électrique. J'ai pu mettre en pratique mes connaissances en électronique et en développement web dans cette web app, bien que je considère une refonte pour améliorer globalement l'expérience.",
+    "description": {
+        "fr": "Ce projet est une webapp qui permet de gérer la domotique d'une maison, celle de mon père. Il est possible de gérer l'arrosage automatique du jardin, l'éclairage extérieur et ainsi que la gestion du portail électrique. J'ai pu mettre en pratique mes connaissances en électronique et en développement web dans cette web app, bien que je considère une refonte pour améliorer globalement l'expérience.",
+        "en": "This project is a webapp that manages the home automation system in my father's house. It's possible to manage the automatic watering of the garden, outdoor lighting and the electric gate. I was able to apply my knowledge of electronics and web development to this web app, although I'm considering a redesign to improve the overall experience."
+    },
     "image": "/src/images/projects/moulin-dashboard.png",
-    "type": "Personnel",
+    "type": {
+        "fr": "Personnel",
+        "en": "Personal"
+    },
     "tags": [
         "React.js",
         "Next.js",
