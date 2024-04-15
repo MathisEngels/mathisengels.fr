@@ -9,12 +9,7 @@
         "fr": "Personnel",
         "en": "Personal"
     },
-    "tags": [
-        "React.js",
-        "Next.js",
-        "NodeJS",
-        "RaspberryPi"
-    ],
+    "tags": ["React.js", "Next.js", "NodeJS", "RaspberryPi"],
     "date": "2018-01-01",
     "displayOnHomepage": true
 }

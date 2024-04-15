@@ -10,12 +10,7 @@
         "fr": "Personnel",
         "en": "Personal"
     },
-    "tags": [
-        "Astro.js",
-        "Three.js",
-        "TailwindCSS",
-        "Blender"
-    ],
+    "tags": ["Astro.js", "Three.js", "TailwindCSS", "Blender"],
     "date": "2024-02-01",
     "displayOnHomepage": true
 }

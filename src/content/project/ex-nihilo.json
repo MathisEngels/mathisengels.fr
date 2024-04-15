@@ -10,11 +10,7 @@
         "fr": "Freelance",
         "en": "Freelance"
     },
-    "tags": [
-        "React.js",
-        "Next.js",
-        "TailwindCSS"
-    ],
+    "tags": ["React.js", "Next.js", "TailwindCSS"],
     "date": "2024-03-01",
     "displayOnHomepage": true
 }
