@@ -1,15 +1,18 @@
 ---
 import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
+import { Languages, useTranslations } from '../i18n'
 import aboutMe from '../images/About_me.jpg'
 import Blob from './Blob.astro'
+
+const t = useTranslations(Astro.currentLocale as Languages)
 ---
 
 <section id="about" class="has-blob">
     <div class="about-container">
         <Image data-aos="fade-up" class="image" src={aboutMe} alt="Mathis Engels" />
-        <div  data-aos="fade-up" data-aos-delay="500" class="text-container">
-            <h2 class="text-xl font-medium">A propos de moi</h2>
+        <div data-aos="fade-up" data-aos-delay="500" class="text-container">
+            <h2 class="text-xl font-medium">{t('aboutMe.title')}</h2>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt, libero ac tristique pulvinar, felis enim mollis orci, in feugiat ipsum ex ut velit. Lorem ipsum dolor sit
                 amet, consectetur adipiscing elit. In quis felis eget dui fringilla convallis. Phasellus tempor lorem eu risus efficitur, a mattis augue ultricies. Nam eget varius ipsum, in hendrerit
@@ -24,6 +27,7 @@ import Blob from './Blob.astro'
     </div>
     <Blob blobClass="top-1/2 left-1/2 scale-[1.1]" colors={['#82c7a6', '#693e16', '#956437']} />
 </section>
+
 <style>
     #about {
         @apply relative flex items-center justify-center min-h-screen;

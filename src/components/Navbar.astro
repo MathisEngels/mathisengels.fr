@@ -1,19 +1,21 @@
 ---
 import { Image } from 'astro:assets'
 import logo from '../images/Logo.webp'
+import { Languages, useTranslations } from '../i18n'
 
 interface Props {
     listen?: boolean
 }
 
 const { listen = true } = Astro.props
+const t = useTranslations(Astro.currentLocale as Languages)
 ---
 
 <nav data-listen={listen}>
     <a class="nav-item active p-0" data-name="hero" href="/#hero"><Image class="p-4 sm:p-6 md:p-2" src={logo} alt="Mathis Engels's Logo" /></a>
     <div class="w-[5%]"></div>
-    <a class="nav-item" data-name="about" href="/#about">A propos</a>
-    <a class="nav-item" data-name="projects" href="/#projects">Projets</a>
+    <a class="nav-item" data-name="about" href="/#about">{t('navbar.about')}</a>
+    <a class="nav-item" data-name="projects" href="/#projects">{t('navbar.projects')}</a>
     <a class="nav-item" data-name="contact" href="/#contact">Contact</a>
     <div class="nav-item nav-selector"></div>
 </nav>

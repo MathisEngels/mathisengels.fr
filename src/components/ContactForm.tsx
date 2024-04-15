@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { z } from 'zod'
+import { Languages, useTranslations } from '../i18n'
 import {
     Form,
     FormControl,
@@ -15,23 +16,26 @@ import {
 import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
 
-const formSchema = z.object({
-    name: z
-        .string()
-        .min(2, 'Le nom doit contenir au minimum 2 caractères')
-        .max(50, 'Le nom doit contenir au maximum 50 caractères'),
-    email: z.string().email("L'email n'est pas valide"),
-    message: z
-        .string()
-        .min(10, 'Le message doit contenir au minimum 10 caractères')
-        .max(1000, 'Le message doit contenir au maximum 1000 caractères'),
-})
-
 export default function ContactForm({
     children,
+    lang,
 }: {
     children?: React.ReactNode
+    lang: string
 }) {
+    const t = useTranslations(lang as Languages)
+
+    const formSchema = z.object({
+        name: z
+            .string()
+            .min(2, t('contactForm.nameTooShort'))
+            .max(50, t('contactForm.nameTooLong')),
+        email: z.string().email(t('contactForm.emailInvalid')),
+        message: z
+            .string()
+            .min(10, t('contactForm.messageTooShort'))
+            .max(1000, t('contactForm.messageTooLong')),
+    })
     const submitButtonRef = useRef<HTMLButtonElement | null>(null)
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -62,9 +66,9 @@ export default function ContactForm({
         await toast.promise(
             sendMessage,
             {
-                pending: 'Envoi du message...',
-                success: 'Message envoyé !',
-                error: 'Une erreur est survenue',
+                pending: t('contactForm.toastPending'),
+                success: t('contactForm.toastSuccess'),
+                error: t('contactForm.toastError'),
             },
             {
                 position: 'top-right',
@@ -84,7 +88,7 @@ export default function ContactForm({
                     name="name"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Nom</FormLabel>
+                            <FormLabel>{t('contactForm.name')}</FormLabel>
                             <FormControl>
                                 <Input placeholder="John Doe" {...field} />
                             </FormControl>
@@ -116,7 +120,9 @@ export default function ContactForm({
                             <FormLabel>Message</FormLabel>
                             <FormControl>
                                 <Textarea
-                                    placeholder="Salut Mathis, j'ai une idée de projet..."
+                                    placeholder={t(
+                                        'contactForm.messagePlaceholder'
+                                    )}
                                     {...field}
                                 />
                             </FormControl>
@@ -130,7 +136,7 @@ export default function ContactForm({
                     disabled={form.formState.isSubmitting}
                     className="flex items-center gap-2 h-9 rounded-3xl ring-2 ring-neutral-400/75 bg-neutral-400/25 bg-clip-padding backdrop-filter backdrop-blur-md !mt-4 md:!mt-6 px-3 py-1placeholder:text-white/50 focus-visible:outline-none enabled:hover:bg-neutral-400/40 disabled:bg-neutral-400/10 disabled:text-white/50 transition-all"
                 >
-                    Envoyer
+                    {t('contactForm.send')}
                     <span>{children}</span>
                 </button>
             </form>

@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content'
 import Blob from './Blob.astro'
 import ProjectComponent from './Project.astro'
 import cn from '../utils/cn'
+import { Languages, useTranslations } from '../i18n'
 
 const allProjects = await getCollection('project', ({ data }) => {
     return data.displayOnHomepage === true
@@ -32,11 +33,16 @@ const marqueeIcons = [
 ].sort(() => Math.random() - 0.5)
 const mid = Math.floor(marqueeIcons.length / 2)
 const icons = [marqueeIcons.slice(0, mid), marqueeIcons.slice(mid)]
+
+const t = useTranslations(Astro.currentLocale as Languages)
 ---
 
 <section id="projects" class="has-blob">
-    <h2 data-aos="fade-up" class="text-7xl md:text-[10rem] font-medium text-gray-400/25 md:mt-24">PROJETS</h2>
-    <a data-aos="fade-up" href="/projects" class="text-sm text-blue-500/80 hover:underline">Voir tous les projets {'>'}</a>
+    <h2 data-aos="fade-up" class="text-7xl md:text-[10rem] font-medium text-gray-400/25 md:mt-24">{t('projects.title')}</h2>
+    <a data-aos="fade-up" href="/projects" class="flex items-center text-sm text-blue-500/80 hover:underline">
+        {t('projects.seeAll')}
+        <Icon name="chevron" />
+    </a>
     <div class="relative flex flex-col gap-12 my-4 max-w-[1000px] md:flex-row md:w-4/5 md:gap-64">
         {
             sortedProjects.map((project) => {
@@ -54,7 +60,7 @@ const icons = [marqueeIcons.slice(0, mid), marqueeIcons.slice(mid)]
         }
     </div>
     <div class="marquee-container">
-        <h3 class="text-xl md:text-4xl">Technologies et frameworks utilisés</h3>
+        <h3 class="text-xl md:text-4xl">{t('projects.techStack')}</h3>
         {
             icons.map((iconGroup, i) => {
                 return (
