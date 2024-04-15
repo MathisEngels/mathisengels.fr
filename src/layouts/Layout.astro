@@ -6,6 +6,7 @@ import Footer from '../components/Footer.astro'
 import Header from '../components/Header.astro'
 import '../styles/global.css'
 import 'aos/dist/aos.css'
+import type { Languages } from '../i18n'
 
 interface Props {
     navbarListen?: boolean
@@ -13,13 +14,26 @@ interface Props {
 
 const { navbarListen = true } = Astro.props;
 
-const title = 'Mathis Engels | Développeur Full-Stack'
-const description =
-    "Bienvenue sur le portfolio de Mathis Engels, développeur Full-Stack passionné par le web et les nouvelles technologies. J'utilise des technologies modernes pour créer des applications web performantes tel que React, Next.js, Astro, TailwindCSS, et bien d'autres. Venez en apprendre plus sur moi et mes projets ! N'hésitez pas à me contacter pour discuter de vos projets ou pour toute autre question."
+const SEOVariants = {
+    en: {
+        title: 'Mathis Engels | Full-Stack Developer',
+        description: "Welcome to the portfolio of Mathis Engels, a full-stack developer with a passion for the web and new technologies. I use modern technologies to create high-performance web applications such as React, Next.js, Astro, TailwindCSS, and many others. Come and find out more about me and my projects! Don't hesitate to contact me to discuss your projects or if you have any other questions.",
+        languageAlternates: [{ hrefLang: 'fr', href: 'https://mathisengels.fr' }],
+        locale: 'en_US',
+        localeAlternate: ['fr_FR']
+    },
+    fr: {
+        title: 'Mathis Engels | Développeur Full-Stack',
+        description: "Bienvenue sur le portfolio de Mathis Engels, développeur Full-Stack passionné par le web et les nouvelles technologies. J'utilise des technologies modernes pour créer des applications web performantes tel que React, Next.js, Astro, TailwindCSS, et bien d'autres. Venez en apprendre plus sur moi et mes projets ! N'hésitez pas à me contacter pour discuter de vos projets ou pour toute autre question.",
+        languageAlternates: [{ hrefLang: 'en', href: 'https://mathisengels.fr/en' }],
+        locale: 'fr_FR',
+        localeAlternate: ['en_US']
+    }
+}
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang={Astro.currentLocale}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
@@ -33,16 +47,19 @@ const description =
         <meta name="theme-color" content="#ffffff">
         <link rel="sitemap" href="/sitemap-index.xml" />
         <SEO
-            title={title}
-            description={description}
+            title={SEOVariants[Astro.currentLocale! as Languages].title}
+            description={SEOVariants[Astro.currentLocale! as Languages].description}
+            languageAlternates={SEOVariants[Astro.currentLocale! as Languages].languageAlternates}
             openGraph={{
                 basic: {
-                    title: title,
+                    title: SEOVariants[Astro.currentLocale! as Languages].title,
                     type: 'website',
                     image: 'https://mathisengels.fr/og-image.webp',
                 },
                 optional: {
-                    description: description,
+                    description: SEOVariants[Astro.currentLocale! as Languages].description,
+                    locale: SEOVariants[Astro.currentLocale! as Languages].locale,
+                    localeAlternate: SEOVariants[Astro.currentLocale! as Languages].localeAlternate
                 },
             }}
         />
