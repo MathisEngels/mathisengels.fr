@@ -1,4 +1,4 @@
-import translations from './translations'
+import translations from '@/i18n/translations'
 
 export enum Languages {
     English = 'en',

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { z } from 'zod'
-import { Languages, useTranslations } from '../i18n'
+
 import {
     Form,
     FormControl,
@@ -12,9 +12,10 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from './ui/form'
-import { Input } from './ui/input'
-import { Textarea } from './ui/textarea'
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Languages, useTranslations } from '@/i18n'
 
 export default function ContactForm({
     children,

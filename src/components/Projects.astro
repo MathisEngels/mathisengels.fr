@@ -1,11 +1,12 @@
 ---
 import { Icon } from 'astro-icon/components'
 import { getCollection } from 'astro:content'
-import Blob from './Blob.astro'
-import ProjectComponent from './Project.astro'
-import cn from '../utils/cn'
-import { Languages, useTranslations } from '../i18n'
 import { getRelativeLocaleUrl } from 'astro:i18n'
+
+import Blob from '@/components/Blob.astro'
+import ProjectComponent from '@/components/Project.astro'
+import { Languages, useTranslations } from '@/i18n'
+import cn from '@/utils/cn'
 
 const allProjects = await getCollection('project', ({ data }) => {
     return data.displayOnHomepage === true

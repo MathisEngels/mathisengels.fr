@@ -1,9 +1,10 @@
 ---
-import { getCollection } from 'astro:content'
-import Project from '../components/Project.astro'
-import Layout from '../layouts/Layout.astro'
 import { Icon } from 'astro-icon/components'
-import Blob from '../components/Blob.astro'
+import { getCollection } from 'astro:content'
+
+import Blob from '@/components/Blob.astro'
+import Project from '@/components/Project.astro'
+import Layout from '@/layouts/Layout.astro'
 
 const allProjects = await getCollection('project')
 
@@ -47,7 +48,7 @@ const tags = allProjects.reduce((acc, project) => {
                 ))
             }
         </div>
-        <Blob parentClass="!fixed md:-mt-24" blobClass="top-1/2 left-1/2 min-w-[300px] min-h-[300px] !w-[20vw] !h-[20vw] rounded-full" colors={['#34A7C0', '#804524', '#B57BA8']}  />
+        <Blob parentClass="!fixed md:-mt-24" blobClass="top-1/2 left-1/2 min-w-[300px] min-h-[300px] !w-[20vw] !h-[20vw] rounded-full" colors={['#34A7C0', '#804524', '#B57BA8']} />
     </section>
 </Layout>
 

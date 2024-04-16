@@ -1,8 +1,9 @@
 ---
 import { Icon } from 'astro-icon/components'
-import { Languages, useTranslations } from '../i18n'
-import Blob from './Blob.astro'
-import ContactForm from './ContactForm'
+
+import Blob from '@/components/Blob.astro'
+import ContactForm from '@/components/ContactForm'
+import { Languages, useTranslations } from '@/i18n'
 
 const t = useTranslations(Astro.currentLocale as Languages)
 ---

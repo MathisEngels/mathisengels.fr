@@ -10,8 +10,8 @@ import {
     useFormContext,
 } from 'react-hook-form'
 
-import cn from '../../utils/cn'
-import { Label } from './label'
+import { Label } from '@/components/ui/label'
+import cn from '@/utils/cn'
 
 const Form = FormProvider
 
@@ -173,5 +173,6 @@ export {
     FormItem,
     FormLabel,
     FormMessage,
-    useFormField,
+    useFormField
 }
+

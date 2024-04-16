@@ -1,5 +1,5 @@
 ---
-import { Languages, useTranslations } from "../i18n"
+import { Languages, useTranslations } from '@/i18n'
 
 const t = useTranslations(Astro.currentLocale as Languages)
 ---
@@ -7,10 +7,10 @@ const t = useTranslations(Astro.currentLocale as Languages)
 <footer class="pb-14 md:pb-0">
     <div class="h-[1px] w-full bg-gray-400"></div>
     <div class="grid grid-cols-3 gap-4 text-sm items-center">
-        <p class="text-xs text-left">{t("footer.madeWith")}{" "}<a class="hover:underline" target="_blank" href="https://astro.build/">Astro</a>.</p>
+        <p class="text-xs text-left">{t('footer.madeWith')}{' '}<a class="hover:underline" target="_blank" href="https://astro.build/">Astro</a>.</p>
         <p class="text-center">Mathis Engels</p>
         <p class="text-xs text-right">
-            {t("footer.privacy1")}{" "}<a class="hover:underline" target="_blank" href="https://plausible.io/">Plausible</a>{" "}{t("footer.privacy2")}
+            {t('footer.privacy1')}{' '}<a class="hover:underline" target="_blank" href="https://plausible.io/">Plausible</a>{' '}{t('footer.privacy2')}
         </p>
     </div>
 </footer>

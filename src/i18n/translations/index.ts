@@ -1,10 +1,10 @@
-import aboutMe from './aboutMe'
-import contact from './contact'
-import contactForm from './contactForm'
-import footer from './footer'
-import hero from './hero'
-import navbar from './navbar'
-import projects from './projects'
+import aboutMe from '@/i18n/translations/aboutMe'
+import contact from '@/i18n/translations/contact'
+import contactForm from '@/i18n/translations/contactForm'
+import footer from '@/i18n/translations/footer'
+import hero from '@/i18n/translations/hero'
+import navbar from '@/i18n/translations/navbar'
+import projects from '@/i18n/translations/projects'
 
 const translations = {
     en: {

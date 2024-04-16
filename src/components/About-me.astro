@@ -1,9 +1,10 @@
 ---
 import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
-import { Languages, useTranslations } from '../i18n'
-import aboutMe from '../images/About_me.jpg'
-import Blob from './Blob.astro'
+
+import Blob from '@/components/Blob.astro'
+import { Languages, useTranslations } from '@/i18n'
+import aboutMe from '@/images/About_me.jpg'
 
 const t = useTranslations(Astro.currentLocale as Languages)
 const relativeLocaleUrl = Astro.currentLocale === Languages.French ? '/' : `/${Astro.currentLocale}`

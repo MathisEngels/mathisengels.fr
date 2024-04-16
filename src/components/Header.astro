@@ -1,10 +1,10 @@
 ---
-import Navbar from "./Navbar.astro";
+import Navbar from '@/components/Navbar.astro'
 
 interface Props {
-    navbarListen?: boolean;
+    navbarListen?: boolean
 }
-const { navbarListen = true } = Astro.props;
+const { navbarListen = true } = Astro.props
 ---
 
 <header data-aos="fade" data-aos-once="true" data-aos-delay="2000" class="fixed bottom-0 md:sticky md:top-8 w-full z-50">

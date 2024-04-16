@@ -1,3 +1,3 @@
-import type { Status } from './components/Hero.astro'
+import type { Status } from '@/components/Hero.astro'
 
 export const status: Status = 'available'
