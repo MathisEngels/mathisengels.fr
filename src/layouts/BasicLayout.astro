@@ -1,0 +1,92 @@
+---
+import '@fontsource-variable/montserrat'
+import { SEO } from 'astro-seo'
+import Analytics from '../components/Analytics.astro'
+import '../styles/global.css'
+import 'aos/dist/aos.css'
+import type { Languages } from '../i18n'
+
+const SEOVariants = {
+    en: {
+        title: 'Mathis Engels | Full-Stack Developer',
+        description: "Welcome to the portfolio of Mathis Engels, a full-stack developer with a passion for the web and new technologies. I use modern technologies to create high-performance web applications such as React, Next.js, Astro, TailwindCSS, and many others. Come and find out more about me and my projects! Don't hesitate to contact me to discuss your projects or if you have any other questions.",
+        languageAlternates: [{ hrefLang: 'fr', href: 'https://mathisengels.fr' }],
+        locale: 'en_US',
+        localeAlternate: ['fr_FR']
+    },
+    fr: {
+        title: 'Mathis Engels | Développeur Full-Stack',
+        description: "Bienvenue sur le portfolio de Mathis Engels, développeur Full-Stack passionné par le web et les nouvelles technologies. J'utilise des technologies modernes pour créer des applications web performantes tel que React, Next.js, Astro, TailwindCSS, et bien d'autres. Venez en apprendre plus sur moi et mes projets ! N'hésitez pas à me contacter pour discuter de vos projets ou pour toute autre question.",
+        languageAlternates: [{ hrefLang: 'en', href: 'https://mathisengels.fr/en' }],
+        locale: 'fr_FR',
+        localeAlternate: ['en_US']
+    }
+}
+---
+
+<!doctype html>
+<html lang={Astro.currentLocale}>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <link rel="sitemap" href="/sitemap-index.xml" />
+        <SEO
+            title={SEOVariants[Astro.currentLocale! as Languages].title}
+            description={SEOVariants[Astro.currentLocale! as Languages].description}
+            languageAlternates={SEOVariants[Astro.currentLocale! as Languages].languageAlternates}
+            openGraph={{
+                basic: {
+                    title: SEOVariants[Astro.currentLocale! as Languages].title,
+                    type: 'website',
+                    image: 'https://mathisengels.fr/og-image.webp',
+                },
+                optional: {
+                    description: SEOVariants[Astro.currentLocale! as Languages].description,
+                    locale: SEOVariants[Astro.currentLocale! as Languages].locale,
+                    localeAlternate: SEOVariants[Astro.currentLocale! as Languages].localeAlternate
+                },
+            }}
+        />
+        <Analytics />
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>
+
+<style>
+    :root {
+        font-family: 'Montserrat Variable', sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        scroll-behavior: smooth;
+    }
+    body {
+        @apply bg-primary min-h-screen text-white;
+    }
+</style>
+
+<script>
+    import AOS from 'aos'
+
+    const initAOS = () => {
+        AOS.init({
+            duration: 1000,
+            disable: (
+                /bot|crawler|spider|crawling/i.test(navigator.userAgent)
+                || window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ),
+        })
+    }
+    
+    initAOS();
+</script>

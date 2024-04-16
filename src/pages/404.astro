@@ -1,0 +1,19 @@
+---
+import Blob from '../components/Blob.astro'
+import BasicLayout from '../layouts/BasicLayout.astro'
+---
+
+<BasicLayout>
+    <main class="h-screen flex flex-col items-center justify-center gap-4 text-center has-blob">
+        <h1 data-aos="fade" class="text-6xl">404 - Not Found</h1>
+        <p data-aos="fade" data-aos-delay="500" class="text-xl">On dirait que tu t'es perdu ☹️</p>
+        <a
+            data-aos="fade"
+            data-aos-delay="1000"
+            class="text-lg py-1 px-3 rounded-full bg-clip-padding backdrop-filter backdrop-blur-md ring-2 ring-neutral-400/75 bg-neutral-400/25 hover:bg-neutral-400/50"
+            href="/">Retourne à l'accueil</a
+        >
+
+        <Blob blobClass="top-1/2 left-1/2 !w-[50vh] !h-[50vh] md:!w-[20vw] md:!h-[20vw] rounded-full" colors={['#bc5ad5', '#43428f', '#262987']} />
+    </main>
+</BasicLayout>
