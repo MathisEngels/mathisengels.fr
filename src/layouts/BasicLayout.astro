@@ -26,6 +26,13 @@ const SEOVariants = {
     },
 }
 
+export type PageSEO = Partial<typeof SEOVariants['en']>
+interface Props {
+    pageSEO?: PageSEO;
+}
+
+const { pageSEO } = Astro.props as Props;
+
 const SEOImage = new URL('/og-image.webp', Astro.url).toString();
 ---
 
@@ -43,13 +50,13 @@ const SEOImage = new URL('/og-image.webp', Astro.url).toString();
         <meta name="theme-color" content="#ffffff" />
         <link rel="sitemap" href="/sitemap-index.xml" />
         <SEO
-            title={SEOVariants[Astro.currentLocale! as Languages].title}
-            description={SEOVariants[Astro.currentLocale! as Languages].description}
+            title={pageSEO?.title ?? SEOVariants[Astro.currentLocale! as Languages].title}
+            description={pageSEO?.description ?? SEOVariants[Astro.currentLocale! as Languages].description}
             charset='UTF-8'
-            languageAlternates={SEOVariants[Astro.currentLocale! as Languages].languageAlternates}
+            languageAlternates={pageSEO?.languageAlternates ?? SEOVariants[Astro.currentLocale! as Languages].languageAlternates}
             openGraph={{
                 basic: {
-                    title: SEOVariants[Astro.currentLocale! as Languages].title,
+                    title: pageSEO?.title ?? SEOVariants[Astro.currentLocale! as Languages].title,
                     type: 'website',
                     image: SEOImage,
                 },
@@ -57,7 +64,7 @@ const SEOImage = new URL('/og-image.webp', Astro.url).toString();
                     alt: 'Mathis Engels logo',
                 },
                 optional: {
-                    description: SEOVariants[Astro.currentLocale! as Languages].description,
+                    description: pageSEO?.description ?? SEOVariants[Astro.currentLocale! as Languages].description,
                     locale: SEOVariants[Astro.currentLocale! as Languages].locale,
                     localeAlternate: SEOVariants[Astro.currentLocale! as Languages].localeAlternate,
                     siteName: 'Portfolio - Mathis Engels'
@@ -65,8 +72,8 @@ const SEOImage = new URL('/og-image.webp', Astro.url).toString();
             }}
             twitter={{
                 card: 'summary',
-                title: SEOVariants[Astro.currentLocale! as Languages].title,
-                description: SEOVariants[Astro.currentLocale! as Languages].description,
+                title: pageSEO?.title ?? SEOVariants[Astro.currentLocale! as Languages].title,
+                description: pageSEO?.description ?? SEOVariants[Astro.currentLocale! as Languages].description,
                 image: SEOImage,
                 imageAlt: 'Mathis Engels logo',
             }}

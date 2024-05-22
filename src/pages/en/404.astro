@@ -1,11 +1,17 @@
 ---
-export const prerender = true;
+export const prerender = true
 
 import Blob from '@/components/Blob.astro'
 import BasicLayout from '@/layouts/BasicLayout.astro'
+
+const pageSEO = {
+    title: '404 | Mathis Engels',
+    description: "Looks like you're lost ☹️",
+    languageAlternates: [{ hrefLang: 'fr', href: `${Astro.url}/fr/404` }],
+}
 ---
 
-<BasicLayout>
+<BasicLayout pageSEO={pageSEO}>
     <main class="h-screen flex flex-col items-center justify-center gap-4 text-center has-blob">
         <h1 data-aos="fade" class="text-6xl">404 - Not Found</h1>
         <p data-aos="fade" data-aos-delay="500" class="text-xl">Looks like you're lost ☹️</p>

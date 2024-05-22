@@ -1,5 +1,5 @@
 ---
-export const prerender = true;
+export const prerender = true
 
 import { Icon } from 'astro-icon/components'
 import { getCollection } from 'astro:content'
@@ -20,9 +20,15 @@ const tags = allProjects.reduce((acc, project) => {
     })
     return acc
 }, [] as string[])
+
+const pageSEO = {
+    title: 'Projects | Mathis Engels',
+    description: "You can find all of my projects here. I'm always working on something new, so make sure to check back often!",
+    languageAlternates: [{ hrefLang: 'fr', href: `${Astro.url}/fr/projects` }],
+}
 ---
 
-<Layout navbarListen={false}>
+<Layout pageSEO={pageSEO} navbarListen={false}>
     <section class="flex flex-col items-center gap-8 my-8 min-h-screen max-w-[1000px] mx-auto md:mt-24">
         <h1 data-aos="fade" class="text-center text-6xl md:text-8xl">Projects</h1>
         <div data-aos="fade" data-aos-delay="1000" class="flex flex-col gap-2 w-full filter">

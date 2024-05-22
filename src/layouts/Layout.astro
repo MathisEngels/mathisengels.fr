@@ -1,16 +1,17 @@
 ---
 import Footer from '@/components/Footer.astro'
 import Header from '@/components/Header.astro'
-import BasicLayout from '@/layouts/BasicLayout.astro'
+import BasicLayout, { type PageSEO } from '@/layouts/BasicLayout.astro'
 
 interface Props {
     navbarListen?: boolean
+    pageSEO?: PageSEO
 }
 
-const { navbarListen = true } = Astro.props
+const { navbarListen = true, pageSEO } = Astro.props
 ---
 
-<BasicLayout>
+<BasicLayout pageSEO={pageSEO}>
     <Header navbarListen={navbarListen} />
     <main>
         <slot />
