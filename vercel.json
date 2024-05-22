@@ -9,7 +9,6 @@
       },
       { "handle": "filesystem" },
       
-      { "src": "/(?<lang>[^/]*)/(.*)", "dest": "/$lang/404/", "status": 404 },
-      { "src": "/(.*)", "dest": "/en/404/", "status": 404 }
+      { "src": "/(?<lang>[^/]*)/(.*)", "dest": "/$lang/404/", "status": 404 }
     ]
   }
