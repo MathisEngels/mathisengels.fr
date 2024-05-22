@@ -129,14 +129,6 @@ const tags = allProjects.reduce((acc, project) => {
         })
     }
 
-    const updateUrl = () => {
-        let newUrl = `${window.location.origin}${window.location.pathname}`
-        if (selectedTags.length > 0) {
-            newUrl += `?tags=${selectedTags.join(',')}`
-        }
-        window.history.pushState({}, '', newUrl)
-    }
-
     tagElements.forEach((tagElement) => {
         const {
             classList,
@@ -158,8 +150,6 @@ const tags = allProjects.reduce((acc, project) => {
             updateAvailableTags()
             triggerTagFilter()
             triggerProjectFilter()
-
-            updateUrl()
         })
     })
 
