@@ -5,3 +5,7 @@
 .Toastify__close-button {
     @apply text-white;
 }
+
+:root {
+    color-scheme: dark;
+}
