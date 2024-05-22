@@ -1,0 +1,9 @@
+{
+    "redirects": [
+        {
+            "source": "/:lang/(.*)",
+            "destination": "/:lang/404.html",
+            "permanent": false
+        }
+    ]
+}
