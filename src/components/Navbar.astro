@@ -11,7 +11,7 @@ interface Props {
 const { listen = true } = Astro.props
 const t = useTranslations(Astro.currentLocale as Languages)
 
-const relativeLocaleUrl = Astro.currentLocale === Languages.French ? '/' : `/${Astro.currentLocale}`
+const relativeLocaleUrl = `/${Astro.currentLocale}`
 ---
 
 <nav data-listen={listen}>

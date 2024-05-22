@@ -12,7 +12,7 @@ const SEOVariants = {
         title: 'Mathis Engels | Full-Stack Developer',
         description:
             "Welcome to the portfolio of Mathis Engels, a full-stack developer with a passion for the web and new technologies. I use modern technologies to create high-performance web applications such as React, Next.js, Astro, TailwindCSS, and many others. Come and find out more about me and my projects! Don't hesitate to contact me to discuss your projects or if you have any other questions.",
-        languageAlternates: [{ hrefLang: 'fr', href: 'https://mathisengels.fr' }],
+        languageAlternates: [{ hrefLang: 'fr', href: '/fr' }],
         locale: 'en_US',
         localeAlternate: ['fr_FR'],
     },
@@ -20,17 +20,18 @@ const SEOVariants = {
         title: 'Mathis Engels | Développeur Full-Stack',
         description:
             "Bienvenue sur le portfolio de Mathis Engels, développeur Full-Stack passionné par le web et les nouvelles technologies. J'utilise des technologies modernes pour créer des applications web performantes tel que React, Next.js, Astro, TailwindCSS, et bien d'autres. Venez en apprendre plus sur moi et mes projets ! N'hésitez pas à me contacter pour discuter de vos projets ou pour toute autre question.",
-        languageAlternates: [{ hrefLang: 'en', href: 'https://mathisengels.fr/en' }],
+        languageAlternates: [{ hrefLang: 'en', href: '/en' }],
         locale: 'fr_FR',
         localeAlternate: ['en_US'],
     },
 }
+
+const SEOImage = new URL('/og-image.webp', Astro.url).toString();
 ---
 
 <!doctype html>
 <html lang={Astro.currentLocale}>
     <head>
-        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -44,18 +45,30 @@ const SEOVariants = {
         <SEO
             title={SEOVariants[Astro.currentLocale! as Languages].title}
             description={SEOVariants[Astro.currentLocale! as Languages].description}
+            charset='UTF-8'
             languageAlternates={SEOVariants[Astro.currentLocale! as Languages].languageAlternates}
             openGraph={{
                 basic: {
                     title: SEOVariants[Astro.currentLocale! as Languages].title,
                     type: 'website',
-                    image: 'https://mathisengels.fr/og-image.webp',
+                    image: SEOImage,
+                },
+                image: {
+                    alt: 'Mathis Engels logo',
                 },
                 optional: {
                     description: SEOVariants[Astro.currentLocale! as Languages].description,
                     locale: SEOVariants[Astro.currentLocale! as Languages].locale,
                     localeAlternate: SEOVariants[Astro.currentLocale! as Languages].localeAlternate,
+                    siteName: 'Portfolio - Mathis Engels'
                 },
+            }}
+            twitter={{
+                card: 'summary',
+                title: SEOVariants[Astro.currentLocale! as Languages].title,
+                description: SEOVariants[Astro.currentLocale! as Languages].description,
+                image: SEOImage,
+                imageAlt: 'Mathis Engels logo',
             }}
         />
         <Analytics />

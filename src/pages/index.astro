@@ -1,15 +1,7 @@
 ---
-import AboutMe from '@/components/About-me.astro'
-import Contact from '@/components/Contact.astro'
-import Hero from '@/components/Hero.astro'
-import Projects from '@/components/Projects.astro'
-import { status } from '@/config'
-import Layout from '@/layouts/Layout.astro'
----
+export const prerender = false;
 
-<Layout>
-    <Hero status={status} />
-    <AboutMe />
-    <Projects />
-    <Contact />
-</Layout>
+const locale = Astro.preferredLocale ?? 'fr';
+
+return Astro.redirect(`/${locale}/`, 307);
+---

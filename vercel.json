@@ -1,0 +1,10 @@
+{
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "routes": [
+        {
+            "src": "/(?<lang>[^/]*)/(.*)",
+            "dest": "/$lang/404/",
+            "status": 404
+        }
+    ]
+}
