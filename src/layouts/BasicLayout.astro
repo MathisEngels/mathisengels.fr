@@ -33,6 +33,8 @@ interface Props {
 
 const { pageSEO } = Astro.props as Props;
 
+const locale = Astro.currentLocale as Languages ?? 'en';
+
 const SEOImage = new URL('/og-image.webp', Astro.url).toString();
 ---
 
@@ -50,13 +52,13 @@ const SEOImage = new URL('/og-image.webp', Astro.url).toString();
         <meta name="theme-color" content="#ffffff" />
         <link rel="sitemap" href="/sitemap-index.xml" />
         <SEO
-            title={pageSEO?.title ?? SEOVariants[Astro.currentLocale! as Languages].title}
-            description={pageSEO?.description ?? SEOVariants[Astro.currentLocale! as Languages].description}
+            title={pageSEO?.title ?? SEOVariants[locale].title}
+            description={pageSEO?.description ?? SEOVariants[locale].description}
             charset='UTF-8'
-            languageAlternates={pageSEO?.languageAlternates ?? SEOVariants[Astro.currentLocale! as Languages].languageAlternates}
+            languageAlternates={pageSEO?.languageAlternates ?? SEOVariants[locale].languageAlternates}
             openGraph={{
                 basic: {
-                    title: pageSEO?.title ?? SEOVariants[Astro.currentLocale! as Languages].title,
+                    title: pageSEO?.title ?? SEOVariants[locale].title,
                     type: 'website',
                     image: SEOImage,
                 },
@@ -64,16 +66,16 @@ const SEOImage = new URL('/og-image.webp', Astro.url).toString();
                     alt: 'Mathis Engels logo',
                 },
                 optional: {
-                    description: pageSEO?.description ?? SEOVariants[Astro.currentLocale! as Languages].description,
-                    locale: SEOVariants[Astro.currentLocale! as Languages].locale,
-                    localeAlternate: SEOVariants[Astro.currentLocale! as Languages].localeAlternate,
+                    description: pageSEO?.description ?? SEOVariants[locale].description,
+                    locale: SEOVariants[locale].locale,
+                    localeAlternate: SEOVariants[locale].localeAlternate,
                     siteName: 'Portfolio - Mathis Engels'
                 },
             }}
             twitter={{
                 card: 'summary',
-                title: pageSEO?.title ?? SEOVariants[Astro.currentLocale! as Languages].title,
-                description: pageSEO?.description ?? SEOVariants[Astro.currentLocale! as Languages].description,
+                title: pageSEO?.title ?? SEOVariants[locale].title,
+                description: pageSEO?.description ?? SEOVariants[locale].description,
                 image: SEOImage,
                 imageAlt: 'Mathis Engels logo',
             }}
