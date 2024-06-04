@@ -18,5 +18,7 @@ export default defineConfig({
     },
     site: 'https://mathisengels.fr',
     output: 'server',
-    adapter: vercel(),
+    adapter: vercel({
+        imageService: true,
+    }),
 })
