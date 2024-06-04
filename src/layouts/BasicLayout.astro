@@ -12,17 +12,11 @@ const SEOVariants = {
         title: 'Mathis Engels | Full-Stack Developer',
         description:
             "Welcome to the portfolio of Mathis Engels, a full-stack developer with a passion for the web and new technologies. I use modern technologies to create high-performance web applications such as React, Next.js, Astro, TailwindCSS, and many others. Come and find out more about me and my projects! Don't hesitate to contact me to discuss your projects or if you have any other questions.",
-        languageAlternates: [{ hrefLang: 'fr', href: '/fr' }],
-        locale: 'en_US',
-        localeAlternate: ['fr_FR'],
     },
     fr: {
         title: 'Mathis Engels | Développeur Full-Stack',
         description:
             "Bienvenue sur le portfolio de Mathis Engels, développeur Full-Stack passionné par le web et les nouvelles technologies. J'utilise des technologies modernes pour créer des applications web performantes tel que React, Next.js, Astro, TailwindCSS, et bien d'autres. Venez en apprendre plus sur moi et mes projets ! N'hésitez pas à me contacter pour discuter de vos projets ou pour toute autre question.",
-        languageAlternates: [{ hrefLang: 'en', href: '/en' }],
-        locale: 'fr_FR',
-        localeAlternate: ['en_US'],
     },
 }
 
@@ -55,7 +49,6 @@ const SEOImage = new URL('/og-image.webp', Astro.url).toString();
             title={pageSEO?.title ?? SEOVariants[locale].title}
             description={pageSEO?.description ?? SEOVariants[locale].description}
             charset='UTF-8'
-            languageAlternates={pageSEO?.languageAlternates ?? SEOVariants[locale].languageAlternates}
             openGraph={{
                 basic: {
                     title: pageSEO?.title ?? SEOVariants[locale].title,
@@ -67,8 +60,6 @@ const SEOImage = new URL('/og-image.webp', Astro.url).toString();
                 },
                 optional: {
                     description: pageSEO?.description ?? SEOVariants[locale].description,
-                    locale: SEOVariants[locale].locale,
-                    localeAlternate: SEOVariants[locale].localeAlternate,
                     siteName: 'Portfolio - Mathis Engels'
                 },
             }}
